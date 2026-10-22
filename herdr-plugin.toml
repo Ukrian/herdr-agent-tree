@@ -1,0 +1,74 @@
+# Agent Tree: render herdr's agents panel as a space -> agents tree by tagging
+# agent panes with $tree_space / $tree_branch / $agent_short tokens.
+# See agent_tree.py for how, and README.md for the config.toml rows it needs.
+id = "ukrian.agent-tree"
+name = "Agent Tree"
+version = "0.1.0"
+# Built and tested against 0.9.5's token-row rendering.
+min_herdr_version = "0.9.5"
+description = "Show the agents panel as a tree of spaces and their agents"
+# fcntl locking in agent_tree.py is POSIX-only.
+platforms = ["linux", "macos"]
+
+# Metadata tokens are not restored after a server restart, so rebuild them.
+[[startup]]
+command = ["python3", "agent_tree.py", "sync"]
+
+[[actions]]
+id = "refresh"
+title = "Rebuild agent tree"
+contexts = ["global"]
+command = ["python3", "agent_tree.py", "sync"]
+
+[[actions]]
+id = "clear"
+title = "Remove agent tree markers"
+contexts = ["global"]
+command = ["python3", "agent_tree.py", "clear"]
+
+# Every event that can add, remove, rename or reorder an agent or its space.
+# pane.agent_status_changed is included because it is the only hookable
+# signal when an agent quits and its pane drops back to a plain shell.
+[[events]]
+on = "pane.agent_detected"
+command = ["python3", "agent_tree.py", "sync"]
+
+[[events]]
+on = "pane.agent_status_changed"
+command = ["python3", "agent_tree.py", "sync"]
+
+[[events]]
+on = "pane.closed"
+command = ["python3", "agent_tree.py", "sync"]
+
+[[events]]
+on = "pane.exited"
+command = ["python3", "agent_tree.py", "sync"]
+
+[[events]]
+on = "pane.moved"
+command = ["python3", "agent_tree.py", "sync"]
+
+[[events]]
+on = "tab.closed"
+command = ["python3", "agent_tree.py", "sync"]
+
+[[events]]
+on = "tab.moved"
+command = ["python3", "agent_tree.py", "sync"]
+
+[[events]]
+on = "workspace.closed"
+command = ["python3", "agent_tree.py", "sync"]
+
+[[events]]
+on = "workspace.renamed"
+command = ["python3", "agent_tree.py", "sync"]
+
+[[events]]
+on = "workspace.moved"
+command = ["python3", "agent_tree.py", "sync"]
+
+[[events]]
+on = "workspace.reordered"
+command = ["python3", "agent_tree.py", "sync"]
