@@ -30,7 +30,8 @@ keep these values across restarts.
 
 ## Requirements
 
-- herdr 0.9.5 or newer
+- herdr 0.9.3 or newer on the server. The sidebar rows have been tested with
+  a 0.9.5 client; older clients may not render them.
 - Linux or macOS
 - `python3` on your `PATH` (standard library only)
 

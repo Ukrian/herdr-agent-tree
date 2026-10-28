@@ -4,8 +4,9 @@
 id = "ukrian.agent-tree"
 name = "Agent Tree"
 version = "0.1.0"
-# Built and tested against 0.9.5's token-row rendering.
-min_herdr_version = "0.9.5"
+# Hooks and token reporting confirmed on a 0.9.3 server (issue #1); the token
+# rows themselves have only been seen rendered by a 0.9.5 client so far.
+min_herdr_version = "0.9.3"
 description = "Show the agents panel as a tree of spaces and their agents"
 # fcntl locking in agent_tree.py is POSIX-only.
 platforms = ["linux", "macos"]
